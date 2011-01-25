@@ -26,22 +26,24 @@ The easy ones :
 
 * Plain old Cookies
 * Gears database API if gears is there
-* Web SQL Database ([wikipedia](http://en.wikipedia.org/wiki/Web_SQL_Database))
-
-    It's obsolete but if chrome implement it, it must be supported.
-
+* Web SQL Database (
+  [wikipedia](http://en.wikipedia.org/wiki/Web_SQL_Database)
+  )
+  <br />
+  It's obsolete but if chrome implement it, it must be supported.
 * sessionStorage / localStorage
-* Indexed DB ([wikipedia](http://en.wikipedia.org/wiki/Indexed_Database_API))
-    
-	Still not implemented but as firefox 4.0 will implement it, webkit got an
-    implementation and there is a bug tracking the progress in chrome tracker
-    support will be needed.
-
-    [Sample usage](http://oakleafblog.blogspot.com/2010/12/testing-indexeddb-with-trial-tool-web.html)
-
+* Indexed DB (
+  [wikipedia](http://en.wikipedia.org/wiki/Indexed_Database_API)
+  )
+  <br />
+  Still not implemented but as firefox 4.0 will implement it, webkit got an
+  implementation and there is a bug tracking the progress in chrome tracker
+  support will be needed.
+  <br />
+  [Sample usage](http://oakleafblog.blogspot.com/2010/12/testing-indexeddb-with-trial-tool-web.html)
 * History as it could be used as a storage mechanism.
-
-    See [chrome.history.* APIs](http://code.google.com/chrome/extensions/history.html)
+  <br />
+  See [chrome.history.* APIs](http://code.google.com/chrome/extensions/history.html)
 
 The ones where a a big amount of NPAPI magic will be needed :
 
@@ -50,18 +52,23 @@ The ones where a a big amount of NPAPI magic will be needed :
 
 The dark areas :
 
-* Cache
+* __Cache__ (
+  [rfc](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9)
+  )
+  <br />
+  We don't have access to the cache not even as an experimental API but it
+  could be used as a perfectly good data store, especially via special PNG
+  pictures readed and written using the canvas API.
+* __ETags__ (
+  [wikipedia](http://en.wikipedia.org/wiki/HTTP_ETag), 
+  [rfc](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.19)
+  )
+  <br/>
+  They are sent back to the page due to the cache so we get the same
+  limitations there.
+* __Java__
+  <br/>
+  Beyond removing the damn plugin there is no way to avoid all sorts of dark
+  tricks if it is enabled. We may at least warn users of the presence of this
+  plugin and explain how to disable it. Warning him back at each java update.
 
-    We don't have access to the cache not even as an experimental API but it
-    could be used as a perfectly good data store, especially via special PNG
-    pictures readed and written using the canvas API.
-
-* ETags [wikipedia](http://en.wikipedia.org/wiki/HTTP_ETag)
-  
-    They are sent back to the page due to the cache so we get the same
-    limitations there.
-
-* Java
-    Beyond removing the damn plugin there is no way to avoid all sorts of dark
-    tricks if it is enabled. We may at least warn users of the presence of this
-    plugin and explain how to disable it. Warning him back at each java update.
