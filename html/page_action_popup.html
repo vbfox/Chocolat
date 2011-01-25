@@ -11,12 +11,19 @@
 			var tab = tabs.getFromPopupHref(document.location.href);
 			$(function() {
 				$("#tabUri").text(document.location.href);
-				$("#tabId").text(tab.id);
-				$("#url").text(tab.url);
+				
+				$("#tabId").text(tab ? tab.id : "undefined");
+				$("#url").text(tab ? tab.url : "undefined");
 			});
 		</script>
+		<style>
+			body { width: 500px; min-height: 200 px;}
+
+		</style>
 	</head>
 	<body>
-		Hello world <div id="xx"></div> / <div id="tabUri"></div> / <div id="tabId"></div> / <div id="url"></div>
+		oldHref = <span id="xx"></span><br />
+		tabId = <span id="tabId"></span><br />
+		url = <span id="url"></span>
 	</body>
 </html>
