@@ -15,7 +15,6 @@ var chromeUtils = {
 	}
 };
 
-
 function Tab(tab)
 {
 	this.id = tab.id;
@@ -36,7 +35,7 @@ function Tab(tab)
 		}
 	};
 
-	var isSchemeWithCookie(scheme)
+	var isSchemeWithCookie = function(scheme)
 	{
 		return scheme == "http" || scheme == "https";
 	}
