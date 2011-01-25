@@ -7,9 +7,12 @@
 	"background_page": "html/background.html",
 	"page_action": {
 		"default_icon": "icons/page_action_default.png",
-		"default_title": "Chocolat",
+		"default_title": "Chocolat"
 	},
 	"permissions": [
-		"tabs"
+		"tabs",
+		"cookies",
+		"http://*",
+		"https://*"
 	]
 }
