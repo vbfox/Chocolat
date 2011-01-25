@@ -19,6 +19,10 @@ var chromeUtils = {
 function Tab(tab)
 {
 	this.id = tab.id;
+	this.url = undefined;
+	this.uri = null;
+
+	var that = this;
 	var popupUrl = "html/page_action_popup.html?" + this.id;
 
 	var findView = function() {
@@ -32,8 +36,21 @@ function Tab(tab)
 		}
 	};
 
-	this.onTabUpdated = function(tab) {
-		this.url = tab.url;
+	var isOnFilteredTab = function() {
+		return that.uri == null
+			|| (that.uri.scheme.lastIndexOf("chrome", 0) == 0);
+	}
+
+	this.onTabUpdated = function(tab, changeInfo) {
+		if (changeInfo.url) {
+			this.url = tab.url;
+			this.uri = (tab.url !== undefined) ? new URI(tab.url) : null;
+		}
+
+		if (isOnFilteredTab()) {
+			return;
+		}
+
 		chrome.pageAction.show(this.id);
 	}
 
@@ -41,7 +58,7 @@ function Tab(tab)
 	}
 	
 	chrome.pageAction.setPopup({ tabId: tab.id, popup: popupUrl });
-	this.onTabUpdated(tab);
+	this.onTabUpdated(tab, { status: tab.status, url: tab.url });
 }
 
 function Tabs()
@@ -55,14 +72,13 @@ function Tabs()
 		}
 
 		console.log("Creating Tab instance for tab " + tab.id);
-		console.log(that);
 		that[tab.id] = new Tab(tab);
 		return true;
 	};
 
-	var onTabUpdated = function(internalTab, tabId, tab) {
-		console.log("Signaling an update to tab " + internalTab.id);
-		internalTab.onTabUpdated(tab);
+	var onTabUpdated = function(internalTab, tabId, changeInfo, tab) {
+		console.log("Signaling an update to tab " + internalTab.id + " (" + changeInfo.status + ") url = " + tab.url);
+		internalTab.onTabUpdated(tab, changeInfo);
 	};
 	var onBrowserActionClicked = function(internalTab, tab) {
 		console.log("Signaling an browser action click to tab " + tab.id);
