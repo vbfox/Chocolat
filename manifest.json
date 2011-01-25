@@ -1,0 +1,16 @@
+{
+	"name": "Chocolat",
+	"version": "0.1",
+	"description": "A nice cookie flavor",
+	"minimum_chrome_version": "5.0.308.0",
+
+	"background_page": "html/background.html",
+	"page_action": {
+		"default_icon": "icons/page_action_default.png",
+		"default_title": "Chocolat",
+		"default_popup": "html/page_action_popup.html"
+	},
+	"permissions": [
+		"tabs"
+	]
+}

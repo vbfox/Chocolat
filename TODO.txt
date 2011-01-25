@@ -1,0 +1,13 @@
+* Make an icon. hacker glider with chrome cookie icon as dots seem cool
+  * See if ok in 16x16
+* Correct license for URI.js, see http://code.google.com/p/js-uri/
+* Rename jQuery without version number otherwise it will be an horror.
+* Build system
+  * Lint js
+  * Minify js
+  * Spritify css images
+  * Optimize png
+  * Compress html
+  * Language ???? js ? ruby ? python ? something else ?
+    * What does jquery use for minify ?
+    * what is js lint written in ?

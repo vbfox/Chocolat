@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<script src="js/libs/jquery-1.4.4.js" type="text/javascript"></script>
+		<script src="js/libs/URI.js" type="text/javascript"></script>
+		<script>
+			var tabs = chrome.extension.getBackgroundPage().tabs;
+			var oldHref = document.location.href;
+			$(function() {
+				$("#xx").text(oldHref);
+			});
+			var tab = tabs.getFromPopupHref(document.location.href);
+			$(function() {
+				$("#tabUri").text(document.location.href);
+				$("#tabId").text(tab.id);
+				$("#url").text(tab.url);
+			});
+		</script>
+	</head>
+	<body>
+		Hello world <div id="xx"></div> / <div id="tabUri"></div> / <div id="tabId"></div> / <div id="url"></div>
+	</body>
+</html>
