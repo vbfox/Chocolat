@@ -36,9 +36,14 @@ function Tab(tab)
 		}
 	};
 
+	var isSchemeWithCookie(scheme)
+	{
+		return scheme == "http" || scheme == "https";
+	}
+
 	var isOnFilteredTab = function() {
 		return that.uri == null
-			|| (that.uri.scheme.lastIndexOf("chrome", 0) == 0);
+			|| !isSchemeWithCookie(that.uri.scheme);
 	}
 
 	this.onTabUpdated = function(tab, changeInfo) {
@@ -51,13 +56,13 @@ function Tab(tab)
 			return;
 		}
 
+		chrome.pageAction.setPopup({ tabId: this.id, popup: popupUrl });
 		chrome.pageAction.show(this.id);
 	}
 
 	this.onBrowserActionClicked = function(tab) {
 	}
 	
-	chrome.pageAction.setPopup({ tabId: tab.id, popup: popupUrl });
 	this.onTabUpdated(tab, { status: tab.status, url: tab.url });
 }
 
