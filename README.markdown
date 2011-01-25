@@ -24,6 +24,7 @@ use. Also see wikipedia :
 http://en.wikipedia.org/wiki/HTTP_cookie#Alternatives to cookies
 
 The easy ones :
+
 * Plain old Cookies
 * Gears database API if gears is there
 * Web SQL Database http://en.wikipedia.org/wiki/Web_SQL_Database
@@ -38,11 +39,13 @@ The easy ones :
   chrome.history.
 
 The ones where a a big amount of NPAPI magic will be needed :
+
 * Flash Local Shared Objects
   http://en.wikipedia.org/wiki/Local_Shared_Object
 * Silverlight Isolated Storage
 
 The dark areas :
+
 * Cache
   We don't have access to the cache not even as an experimental API but it
   could be used as a perfectly good data store, especially via special PNG
