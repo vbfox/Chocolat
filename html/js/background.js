@@ -47,6 +47,7 @@ function Tab(tab)
 function Tabs()
 {
 	var that = this;
+
 	var createTab = function(tab) {
 		if (tab.id === undefined) return false;
 		if (that[tab.id] !== undefined) {
@@ -59,8 +60,8 @@ function Tabs()
 		return true;
 	};
 
-	var onTabUpdated = function(internalTab, tab) {
-		console.log("Signaling an update to tab " + tab.id);
+	var onTabUpdated = function(internalTab, tabId, tab) {
+		console.log("Signaling an update to tab " + internalTab.id);
 		internalTab.onTabUpdated(tab);
 	};
 	var onBrowserActionClicked = function(internalTab, tab) {
@@ -68,24 +69,28 @@ function Tabs()
 		internalTab.onBrowserActionClicked(tab);
 	};
 
-	var addCheckTab = function(continuation) {
-		return function(tab) {
-			console.log(tab);
-			if (that[tab.id] === undefined) {
-				if (!createTab(tab)) {
-					console.error("Tab object didn't already exists "
-							+ "and can't create it for tab " + tab.id);
-					return;
-				}
+	var addCheckTab = function(continuation, getTabId) {
+		return function() {
+			var tabId = getTabId.apply(that, arguments);
+
+			if (tabId == undefined) {
+				throw new Error("Unable to get the tab for an event.");
 			}
-			continuation(that[tab.id], tab);
+
+			var tab = that[tabId];
+			if (tab === undefined) {
+				throw new Error("Tab object didn't exists for tab " + tabId);
+			}
+			
+			var args = Array.apply(null, arguments);
+			continuation.apply(that, [tab].concat(args));
 		};
 	}
 
 	console.log("Adding listeners for global tabs events");
-	chrome.tabs.onCreated.addListener(addCheckTab(createTab));
-	chrome.tabs.onUpdated.addListener(addCheckTab(onTabUpdated));
-	chrome.browserAction.onClicked.addListener(addCheckTab(onBrowserActionClicked));
+	chrome.tabs.onCreated.addListener(createTab);
+	chrome.tabs.onUpdated.addListener(addCheckTab(onTabUpdated, function(tabId) { return tabId; }));
+	//chrome.browserAction.onClicked.addListener(addCheckTab(onBrowserActionClicked));
 
 	chromeUtils.runOnEveryTab(createTab);
 
@@ -102,4 +107,6 @@ function Tabs()
 	};
 }
 
+console.log("Loading background...");
 window.tabs = new Tabs();
+console.log("Background loaded.");
