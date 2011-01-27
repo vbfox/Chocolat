@@ -12,7 +12,6 @@
 	"permissions": [
 		"tabs",
 		"cookies",
-		"http://*",
-		"https://*"
+		"<all_urls>"
 	]
 }
