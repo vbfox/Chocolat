@@ -11,3 +11,6 @@
   * Language ???? js ? ruby ? python ? something else ?
     * What does jquery use for minify ?
     * what is js lint written in ?
+* See if importing microsoft blocking format is wise (as the feature set
+  won't be the same anyway)
+  http://blogs.msdn.com/b/ie/archive/2010/12/07/ie9-and-privacy-introducing-tracking-protection-v8.aspx
