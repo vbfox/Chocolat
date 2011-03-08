@@ -15,15 +15,29 @@
 				$("#tabId").text(tab ? tab.id : "undefined");
 				$("#url").text(tab ? tab.url : "undefined");
 			});
+			$(function() {
+				chrome.extension.getBackgroundPage().utils.getCookiesStats(function(stats) {
+					$("#cookie-count").text(stats.count);
+					$("#cookie-persistent").text(stats.persistent);
+					$("#cookie-secure").text(stats.secure);
+					$("#cookie-httponly").text(stats.httpOnly);
+				});
+			});
 		</script>
 		<style>
-			body { width: 500px; min-height: 200 px;}
-
+			body { width: 500px; min-height: 200 px; font-family: sans-serif; background-color: #2A211C; color: #BDAE9D}
+			
 		</style>
 	</head>
 	<body>
 		oldHref = <span id="xx"></span><br />
 		tabId = <span id="tabId"></span><br />
 		url = <span id="url"></span>
+		<p>
+			There are <span id="cookie-count" ></span> cookies,
+			<span id="cookie-persistent"></span> persists beyond sessions,
+			<span id="cookie-secure"></span> are secure (HTTPS)
+			and <span id="cookie-httponly"></span> are innaccessible to scripts.
+		</p>
 	</body>
 </html>
